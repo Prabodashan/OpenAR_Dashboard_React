@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -14,9 +14,13 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
+import { DarkModeContext } from "../../contexts/darkModeContext";
+
 import "./sidebar.scss";
 
 const Sidebar = () => {
+  const { toggle } = useContext(DarkModeContext);
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -28,10 +32,12 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link to="/home" style={{ textDecoration: "none" }}>
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
@@ -87,8 +93,14 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
+        <div
+          className="colorOption"
+          onClick={() => toggle({ type: "LIGHT" })}
+        ></div>
+        <div
+          className="colorOption"
+          onClick={() => toggle({ type: "DARK" })}
+        ></div>
       </div>
     </div>
   );
