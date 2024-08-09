@@ -10,7 +10,7 @@ const GlobalLayout = () => {
   return (
     <main className="layout">
       <Sidebar />
-      <div className="mainContainer">
+      <div className="container">
         <Navbar />
         <Outlet />
       </div>
