@@ -1,0 +1,21 @@
+.globalMissing {
+  height: 100vh;
+  background-color: white;
+  font-size: 200px;
+
+  h1 {
+    margin: 0 auto;
+    inline: block;
+    text-align: center;
+    animation-name: darken;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+  }
+
+  h3 {
+    margin: 0 auto;
+    inline: block;
+    text-align: center;
+    font-size: 30px;
+  }
+}
