@@ -4,6 +4,7 @@ export const API_URLS = {
   REFRESH_TOKEN_URL: "usertokens/access/generate",
   GET_ALL_USER_URL: "users/all",
   GET_USER_BY_ID_URL: "users",
+  DELETE_USER_BY_ID_URL: "users",
   FORGET_PASSWORD_URL: "users/forget-password",
   RESET_PASSWORD_URL: "users/reset-password",
 };

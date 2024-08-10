@@ -11,6 +11,7 @@ import "./users.scss";
 import { API_URLS } from "../../configs/api.urls";
 import UseAuth from "./../../hooks/UseAuth";
 import useAxios from "./../../libraries/axios";
+import { toast } from "sonner";
 
 const Users = () => {
   const { auth } = UseAuth();
@@ -48,8 +49,24 @@ const Users = () => {
       buttons: [
         {
           label: "Yes",
-          onClick: () =>
-            setUserData(userData.filter((item) => item._id !== id)),
+          onClick: async () => {
+            const response = await fetchData({
+              url: API_URLS.DELETE_USER_BY_ID_URL + `/${id}`,
+              method: "DELETE",
+              requestConfig: {
+                "content-type": "application/json",
+                token: "Bearer " + auth.accessToken,
+              },
+            });
+
+            console.log(response);
+
+            if (!response.status) {
+              return toast.error(response.error.message);
+            }
+            toast.success(response.success.message);
+            getUsers();
+          },
         },
         {
           label: "No",

@@ -5,9 +5,13 @@ import useAxios from "../../libraries/axios";
 import { toast } from "sonner";
 import { API_URLS } from "../../configs/api.urls";
 import UseAuth from "../../hooks/UseAuth";
+import { useNavigate } from "react-router-dom";
 
 const NewUser = () => {
+  const navigate = useNavigate();
+
   const { auth } = UseAuth();
+
   const [inputs, setInputs] = useState({
     fullName: "",
     emailAddress: "",
@@ -69,6 +73,7 @@ const NewUser = () => {
       return toast.error(response.error.message);
     }
     toast.success(response.success.message);
+    navigate("/users", { replace: true });
   };
 
   return (
