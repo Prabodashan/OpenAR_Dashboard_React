@@ -18,20 +18,25 @@
         top: 0;
         right: 0;
         padding: 5px;
-        font-size: 12px;
+        font-size: 15px;
         color: #7451f8;
         background-color: #7551f818;
         cursor: pointer;
         border-radius: 0px 0px 0px 5px;
       }
 
+      .title {
+        font-size: 20px;
+      }
+
       .item {
         display: flex;
-        gap: 20px;
+        align-items: center;
+        gap: 50px;
 
         .itemImg {
-          width: 100px;
-          height: 100px;
+          width: 200px;
+          height: 200px;
           border-radius: 50%;
           object-fit: cover;
         }
@@ -44,16 +49,17 @@
 
           .detailItem {
             margin-bottom: 10px;
-            font-size: 14px;
 
             .itemKey {
               font-weight: bold;
               color: gray;
               margin-right: 5px;
+              font-size: 18px;
             }
 
             .itemValue {
               font-weight: 300;
+              font-size: 18px;
             }
           }
         }

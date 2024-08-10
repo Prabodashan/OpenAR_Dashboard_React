@@ -49,21 +49,32 @@
     }
   }
 
-  .datatable {
-    .datagrid {
+  .datagrid {
+    color: gray;
+    border: none;
+    border: 1px solid gray;
+
+    .viewButton,
+    .deleteButton,
+    .cellWithStatus {
       color: gray;
       border: none;
-
-      .viewButton,
-      .deleteButton,
-      .cellWithStatus {
-        color: gray;
-        border: none;
-      }
     }
   }
 
-  input {
-    background-color: transparent;
+  .MuiDataGrid-row--borderBottom {
+    background-color: #111 !important;
+  }
+
+  .MuiButtonBase-root,
+  .MuiTablePagination-root,
+  .MuiSvgIcon-root {
+    color: gray;
+  }
+
+  input,
+  select {
+    background-color: transparent !important;
+    color: gray;
   }
 }

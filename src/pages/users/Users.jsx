@@ -1,16 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { DataGrid } from "@mui/x-data-grid";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 import { userColumns, userRows } from "../../data/datatablesource";
 import "./users.scss";
+// import axios from "../../configs/axios";
+import { API_URLS } from "../../configs/api.urls";
+import UseAuth from "./../../hooks/UseAuth";
+import useAxios from "./../../libraries/axios";
 
 const Users = () => {
-  const [data, setData] = useState(userRows);
+  const { auth } = UseAuth();
+  const [userData, setUserData] = useState();
+
+  const { error, loading, fetchData } = useAxios();
+
+  const getUsers = async () => {
+    const response = await fetchData({
+      url: API_URLS.GET_ALL_USER_URL,
+      method: "GET",
+      requestConfig: {
+        "content-type": "application/json",
+        token: "Bearer " + auth.accessToken,
+      },
+    });
+
+    if (response?.status) {
+      setUserData(response.user);
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const rows = useMemo(
+    () => userData?.map((row) => ({ ...row, id: row._id })),
+    [userData]
+  );
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure to delete user.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () =>
+            setUserData(userData.filter((item) => item._id !== id)),
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
   };
 
   const actionColumn = [
@@ -21,7 +66,10 @@ const Users = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link
+              to={`/users/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -44,14 +92,18 @@ const Users = () => {
           Add New
         </Link>
       </div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : (
+        <DataGrid
+          className="datagrid"
+          rows={rows}
+          columns={userColumns.concat(actionColumn)}
+          pageSize={9}
+          rowsPerPageOptions={[9]}
+          checkboxSelection
+        />
+      )}
     </div>
   );
 };

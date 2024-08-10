@@ -14,7 +14,7 @@ export const DarkModeContextProvider = ({ children }) => {
         break;
       }
       case "DARK": {
-        setDarkMode(false);
+        setDarkMode(true);
         break;
       }
       case "TOGGLE": {
