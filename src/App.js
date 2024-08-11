@@ -14,9 +14,12 @@ import { DarkModeContext } from "./contexts/darkModeContext";
 import "./App.css";
 import "./style/dark.scss";
 import { Toaster } from "sonner";
+import Collection from "./pages/collection/Collection";
+import NewCollection from "./pages/newCollection/NewCollection";
+import SingleCollection from "./pages/singleCollection/SingleCollection";
 
 const ROLES = {
-  Member: "member",
+  User: "user",
   Admin: "admin",
 };
 
@@ -30,12 +33,24 @@ function App() {
           <Route index element={<Login />} />
           <Route path="/" element={<GlobalLayout />}>
             {/* protected routes */}
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route
+              element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}
+            >
               <Route path="home" element={<Home />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path="users">
                 <Route index element={<Users />} />
                 <Route path=":userId" element={<SingleUser />} />
                 <Route path="new" element={<NewUser />} />
+              </Route>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route path="collection">
+                <Route index element={<Collection />} />
+                <Route path=":collectionId" element={<SingleCollection />} />
+                <Route path="new" element={<NewCollection />} />
               </Route>
             </Route>
           </Route>

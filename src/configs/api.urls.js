@@ -7,4 +7,9 @@ export const API_URLS = {
   DELETE_USER_BY_ID_URL: "users",
   FORGET_PASSWORD_URL: "users/forget-password",
   RESET_PASSWORD_URL: "users/reset-password",
+
+  CREATE_COLLECTION_URL: "collection/create",
+  GET_ALL_COLLECTION_URL: "collection/all",
+  GET_COLLECTION_BY_ID_URL: "collection",
+  DELETE_COLLECTION_BY_ID_URL: "collection",
 };

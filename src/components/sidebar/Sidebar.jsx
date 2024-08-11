@@ -15,11 +15,15 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import { DarkModeContext } from "../../contexts/darkModeContext";
+import UseAuth from "./../../hooks/UseAuth";
 
 import "./sidebar.scss";
 
 const Sidebar = () => {
+  const { auth } = UseAuth();
   const { toggle } = useContext(DarkModeContext);
+
+  console.log(auth.userType);
 
   return (
     <div className="sidebar">
@@ -39,26 +43,44 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Users</span>
-            </li>
-          </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
-              <span>Products</span>
-            </li>
-          </Link>
-          <li>
-            <CreditCardIcon className="icon" />
-            <span>Orders</span>
-          </li>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
+          {auth.userType == "admin" ? (
+            <>
+              <Link to="/users" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>Users</span>
+                </li>
+              </Link>{" "}
+            </>
+          ) : (
+            ""
+          )}
+          {auth.userType == "user" ? (
+            <>
+              <Link to="/collection" style={{ textDecoration: "none" }}>
+                <li>
+                  <CreditCardIcon className="icon" />
+                  <span>Collection</span>
+                </li>
+              </Link>
+              <li>
+                <StoreIcon className="icon" />
+                <span>Orders</span>
+              </li>
+            </>
+          ) : (
+            ""
+          )}
+          {auth.userType == "dev" ? (
+            <>
+              <li>
+                <LocalShippingIcon className="icon" />
+                <span>Delivery</span>
+              </li>
+            </>
+          ) : (
+            ""
+          )}
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />

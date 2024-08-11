@@ -5,7 +5,6 @@ const BASE_URL = "http://localhost:3301/api";
 
 // Custom hook for API calls with request cancellation and interceptors
 const useAxios = () => {
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Create an Axios instance
@@ -69,18 +68,15 @@ const useAxios = () => {
 
       return result.data;
     } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("Request cancelled", error.message);
-      } else {
-        setError(error.response ? error.response.data : error.message);
-      }
+      console.log("Request cancelled", error.response.data);
+      return error.response.data;
     } finally {
       setLoading(false);
     }
   };
 
   // Expose the state and the fetchData function
-  return { error, loading, fetchData };
+  return { loading, fetchData };
 };
 
 export default useAxios;

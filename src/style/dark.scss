@@ -62,8 +62,10 @@
     }
   }
 
-  .MuiDataGrid-row--borderBottom {
+  .MuiDataGrid-row--borderBottom,
+  .MuiDataGrid-overlayWrapperInner {
     background-color: #111 !important;
+    --unstable_DataGrid-overlayBackground: #111;
   }
 
   .MuiButtonBase-root,
