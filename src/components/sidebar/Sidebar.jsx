@@ -5,7 +5,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import StoreIcon from "@mui/icons-material/Store";
+import DescriptionIcon from "@mui/icons-material/Description";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -60,13 +60,15 @@ const Sidebar = () => {
               <Link to="/collection" style={{ textDecoration: "none" }}>
                 <li>
                   <CreditCardIcon className="icon" />
-                  <span>Collection</span>
+                  <span>Collocations</span>
                 </li>
               </Link>
-              <li>
-                <StoreIcon className="icon" />
-                <span>Orders</span>
-              </li>
+              <Link to="/item" style={{ textDecoration: "none" }}>
+                <li>
+                  <DescriptionIcon className="icon" />
+                  <span>Items</span>
+                </li>
+              </Link>
             </>
           ) : (
             ""

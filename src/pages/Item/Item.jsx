@@ -5,22 +5,22 @@ import { DataGrid } from "@mui/x-data-grid";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-import { collectionColumns } from "../../data/datatablesource";
-import "./collection.scss";
+import { ItemColumns } from "../../data/datatablesource";
+import "./item.scss";
 import { API_URLS } from "../../configs/api.urls";
 import UseAuth from "../../hooks/UseAuth";
 import useAxios from "../../libraries/axios";
 import { toast } from "sonner";
 
-const Collection = () => {
+const Item = () => {
   const { auth } = UseAuth();
-  const [collectionData, setCollectionData] = useState();
+  const [itemData, setItemData] = useState();
 
   const { loading, fetchData } = useAxios();
 
-  const getCollection = async () => {
+  const getItem = async () => {
     const response = await fetchData({
-      url: API_URLS.GET_ALL_COLLECTION_URL,
+      url: API_URLS.GET_ALL_ITEM_URL,
       method: "GET",
       requestConfig: {
         "content-type": "application/json",
@@ -29,28 +29,28 @@ const Collection = () => {
     });
 
     if (response?.status) {
-      setCollectionData(response.collection);
+      setItemData(response.item);
     }
   };
   useEffect(() => {
-    getCollection();
+    getItem();
   }, []);
 
   const rows = useMemo(
-    () => collectionData?.map((row) => ({ ...row, id: row._id })),
-    [collectionData]
+    () => itemData?.map((row) => ({ ...row, id: row._id })),
+    [itemData]
   );
 
   const handleDelete = (id) => {
     confirmAlert({
       title: "Confirm to submit",
-      message: "Are you sure to delete collection.",
+      message: "Are you sure to delete item.",
       buttons: [
         {
           label: "Yes",
           onClick: async () => {
             const response = await fetchData({
-              url: API_URLS.DELETE_COLLECTION_BY_ID_URL + `/${id}`,
+              url: API_URLS.DELETE_ITEM_BY_ID_URL + `/${id}`,
               method: "DELETE",
               requestConfig: {
                 "content-type": "application/json",
@@ -62,7 +62,7 @@ const Collection = () => {
               return toast.error(response.error.message);
             }
             toast.success(response.success.message);
-            getCollection();
+            getItem();
           },
         },
         {
@@ -81,7 +81,7 @@ const Collection = () => {
         return (
           <div className="cellAction">
             <Link
-              to={`/collection/${params.row.id}`}
+              to={`/item/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
@@ -99,10 +99,10 @@ const Collection = () => {
   ];
 
   return (
-    <div className="collection">
+    <div className="items">
       <div className="titlebar">
-        Add New Collection
-        <Link to="/collection/new" className="link">
+        Add New Item
+        <Link to="/item/new" className="link">
           Add New
         </Link>
       </div>
@@ -112,7 +112,7 @@ const Collection = () => {
         <DataGrid
           className="datagrid"
           rows={rows}
-          columns={collectionColumns.concat(actionColumn)}
+          columns={ItemColumns.concat(actionColumn)}
           pageSize={9}
           rowsPerPageOptions={[9]}
           checkboxSelection
@@ -122,4 +122,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default Item;

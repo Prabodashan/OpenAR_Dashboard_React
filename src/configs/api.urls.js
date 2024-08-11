@@ -12,4 +12,10 @@ export const API_URLS = {
   GET_ALL_COLLECTION_URL: "collection/all",
   GET_COLLECTION_BY_ID_URL: "collection",
   DELETE_COLLECTION_BY_ID_URL: "collection",
+
+  CREATE_ITEM_URL: "item/create",
+  GET_ALL_ITEM_URL: "item/all",
+  GET_ALL_ITEM_BY_COLLECTION_ID_URL: "item/collection",
+  GET_ITEM_BY_ID_URL: "item",
+  DELETE_ITEM_BY_ID_URL: "item",
 };

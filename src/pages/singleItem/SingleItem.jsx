@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import "./singleUser.scss";
+import Table from "../../components/table/Table";
+
+import "./singleItem.scss";
 import { API_URLS } from "../../configs/api.urls";
 import useAxios from "../../libraries/axios";
 import UseAuth from "../../hooks/UseAuth";
 
-const SingleUser = () => {
+const SingleItem = () => {
   const { auth } = UseAuth();
 
   const location = useLocation();
-  const userId = location.pathname.split("/")[2];
+  const itemId = location.pathname.split("/")[2];
 
-  const [userData, setUserData] = useState();
+  const [itemData, setItemData] = useState();
 
   const { loading, fetchData } = useAxios();
 
-  const getUser = async () => {
+  const getCollection = async () => {
     const response = await fetchData({
-      url: API_URLS.GET_USER_BY_ID_URL + `/${userId}`,
+      url: API_URLS.GET_ITEM_BY_ID_URL + `/${itemId}`,
       method: "GET",
       requestConfig: {
         "content-type": "application/json",
@@ -26,21 +28,22 @@ const SingleUser = () => {
       },
     });
 
+    console.log(response);
     if (response?.status) {
-      setUserData(response.user);
+      setItemData(response.item);
     }
   };
   useEffect(() => {
-    getUser();
+    getCollection();
   }, []);
 
   return (
-    <div className="singleUser">
+    <div className="singleItem">
       <div className="top">
         <div className="left">
           <div className="editButton">Edit</div>
           <h1 className="title">Information</h1>
-          {userData ? (
+          {itemData ? (
             <div className="item">
               <img
                 src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
@@ -48,18 +51,14 @@ const SingleUser = () => {
                 className="itemImg"
               />
               <div className="details">
-                <h1 className="itemTitle">{userData.fullName}</h1>
+                <h1 className="itemTitle">{itemData.name}</h1>
                 <div className="detailItem">
-                  <span className="itemKey">Email:</span>
-                  <span className="itemValue">{userData.emailAddress}</span>
+                  <span className="itemKey">Description:</span>
+                  <span className="itemValue">{itemData.description}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">{userData.phoneNumber}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">User Type :</span>
-                  <span className="itemValue">{userData.userType}</span>
+                  <span className="itemKey">Collection:</span>
+                  <span className="itemValue">{itemData.collectionName}</span>
                 </div>
               </div>
             </div>
@@ -68,12 +67,9 @@ const SingleUser = () => {
           )}
         </div>
       </div>
-      {/* <div className="bottom">
-        <h1 className="title">Last Transactions</h1>
-        <Table />
-      </div> */}
+      {/* <div className="bottom"></div> */}
     </div>
   );
 };
 
-export default SingleUser;
+export default SingleItem;

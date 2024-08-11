@@ -37,3 +37,22 @@ export const collectionColumns = [
     width: 400,
   },
 ];
+
+export const ItemColumns = [
+  { field: "id", headerName: "ID", width: 230 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 230,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 400,
+  },
+  {
+    field: "collectionName",
+    headerName: "Collection",
+    width: 230,
+  },
+];

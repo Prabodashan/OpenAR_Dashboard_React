@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import Table from "../../components/table/Table";
 
@@ -7,6 +7,8 @@ import "./singleCollection.scss";
 import { API_URLS } from "../../configs/api.urls";
 import useAxios from "../../libraries/axios";
 import UseAuth from "../../hooks/UseAuth";
+import { DataGrid } from "@mui/x-data-grid";
+import { ItemColumns } from "../../data/datatablesource";
 
 const SingleCollection = () => {
   const { auth } = UseAuth();
@@ -15,12 +17,11 @@ const SingleCollection = () => {
   const collectionId = location.pathname.split("/")[2];
 
   const [collectionData, setCollectionData] = useState();
+  const [collectionItemData, setCollectionItemData] = useState();
 
   const { loading, fetchData } = useAxios();
 
   const getCollection = async () => {
-    console.log(API_URLS.GET_COLLECTION_BY_ID_URL);
-
     const response = await fetchData({
       url: API_URLS.GET_COLLECTION_BY_ID_URL + `/${collectionId}`,
       method: "GET",
@@ -34,9 +35,58 @@ const SingleCollection = () => {
       setCollectionData(response.collection);
     }
   };
+
+  const getCollectionItems = async () => {
+    const response = await fetchData({
+      url: API_URLS.GET_ALL_ITEM_BY_COLLECTION_ID_URL + `/${collectionId}`,
+      method: "GET",
+      requestConfig: {
+        "content-type": "application/json",
+        token: "Bearer " + auth.accessToken,
+      },
+    });
+
+    console.log(response);
+
+    if (response?.status) {
+      setCollectionItemData(response.item);
+    }
+  };
   useEffect(() => {
     getCollection();
+    getCollectionItems();
   }, []);
+
+  const rows = useMemo(
+    () => collectionItemData?.map((row) => ({ ...row, id: row._id })),
+    [collectionItemData]
+  );
+
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <Link
+              to={`/item/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="viewButton">View</div>
+            </Link>
+            <div
+              className="deleteButton"
+              // onClick={() => handleDelete(params.row.id)}
+            >
+              Delete
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="singleCollection">
@@ -67,8 +117,19 @@ const SingleCollection = () => {
         </div>
       </div>
       <div className="bottom">
-        <h1 className="title">Last Transactions</h1>
-        <Table />
+        <h1 className="title">Collection Item Details</h1>
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <DataGrid
+            className="datagrid"
+            rows={rows}
+            columns={ItemColumns.concat(actionColumn)}
+            pageSize={9}
+            rowsPerPageOptions={[9]}
+            checkboxSelection
+          />
+        )}
       </div>
     </div>
   );

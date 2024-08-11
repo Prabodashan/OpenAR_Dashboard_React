@@ -17,6 +17,9 @@ import { Toaster } from "sonner";
 import Collection from "./pages/collection/Collection";
 import NewCollection from "./pages/newCollection/NewCollection";
 import SingleCollection from "./pages/singleCollection/SingleCollection";
+import SingleItem from "./pages/singleItem/SingleItem";
+import NewItem from "./pages/newItem/NewItem";
+import Item from "./pages/Item/Item";
 
 const ROLES = {
   User: "user",
@@ -51,6 +54,11 @@ function App() {
                 <Route index element={<Collection />} />
                 <Route path=":collectionId" element={<SingleCollection />} />
                 <Route path="new" element={<NewCollection />} />
+              </Route>
+              <Route path="item">
+                <Route index element={<Item />} />
+                <Route path=":collectionId" element={<SingleItem />} />
+                <Route path="new" element={<NewItem />} />
               </Route>
             </Route>
           </Route>

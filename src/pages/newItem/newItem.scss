@@ -1,0 +1,110 @@
+.newItem {
+  .top,
+  .bottom {
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    padding: 10px;
+    margin: 20px;
+    display: flex;
+
+    h1 {
+      color: lightgray;
+      font-size: 20px;
+    }
+
+    .left {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 2px solid gray;
+      margin-right: 50px;
+
+      img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .right {
+      flex: 3;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+        padding-right: 25px;
+
+        .formInput {
+          width: 60%;
+
+          label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .icon {
+              cursor: pointer;
+            }
+          }
+
+          input {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            font-size: 16px;
+            border-bottom: 1px solid gray;
+          }
+
+          .select-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+          }
+
+          select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid gray;
+            background-color: transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-size: 16px;
+            cursor: pointer;
+          }
+
+          .select-container::after {
+            content: "▼"; /* Custom arrow */
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* Make sure the icon doesn't interfere with clicking */
+            color: gray; /* Color of the arrow */
+          }
+
+          select:focus {
+            outline: none;
+            border-bottom: 2px solid black;
+          }
+        }
+
+        button {
+          width: 200px;
+          padding: 10px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
