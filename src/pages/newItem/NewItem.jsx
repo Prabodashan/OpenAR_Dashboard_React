@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+
+import useAxios from "../../libraries/axios";
 
 import "./newItem.scss";
-import useAxios from "../../libraries/axios";
-import { toast } from "sonner";
+
 import { API_URLS } from "../../configs/api.urls";
 import UseAuth from "../../hooks/UseAuth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NewItem = () => {
   const navigate = useNavigate();
@@ -18,6 +23,9 @@ const NewItem = () => {
     file: "",
     collectionId: "",
   });
+
+  const [file, setFile] = useState("");
+  const [progress, setProgress] = useState(0);
 
   const [collectionData, setCollectionData] = useState([]);
 
@@ -68,10 +76,31 @@ const NewItem = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const fileResponse = await axios.post(API_URLS.FILE_UPLOAD_URL, formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setProgress(percentCompleted);
+      },
+    });
+
+    const { name, description, collectionId } = inputs;
+
+    const itemData = {
+      name,
+      description,
+      file: fileResponse.data.file.path,
+      collectionId,
+    };
+
     const response = await fetchData({
       url: API_URLS.CREATE_ITEM_URL,
       method: "POST",
-      data: inputs,
+      data: itemData,
       requestConfig: {
         "content-type": "application/json",
         token: "Bearer " + auth.accessToken,
@@ -149,6 +178,26 @@ const NewItem = () => {
                 <p>
                   <br />
                 </p>
+              )}
+            </div>
+
+            <div className="formInput">
+              <label htmlFor="file">
+                File: <DriveFolderUploadOutlinedIcon className="icon" />{" "}
+                <span>{file.name}</span>
+              </label>
+              <input
+                type="file"
+                id="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: "none" }}
+              />
+              {progress > 0 ? (
+                <div className="progress-bg">
+                  <div className="progress" style={{ width: `${progress}%` }} />
+                </div>
+              ) : (
+                ""
               )}
             </div>
 

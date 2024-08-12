@@ -18,4 +18,6 @@ export const API_URLS = {
   GET_ALL_ITEM_BY_COLLECTION_ID_URL: "item/collection",
   GET_ITEM_BY_ID_URL: "item",
   DELETE_ITEM_BY_ID_URL: "item",
+
+  FILE_UPLOAD_URL: "http://localhost:3301/api/file/upload?folderName=zip",
 };

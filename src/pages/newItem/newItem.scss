@@ -51,6 +51,22 @@
             }
           }
 
+          .progress-bg {
+            width: 100%;
+            height: 5px;
+            background-color: rgba(0, 0, 0, 0.076);
+            border-radius: 8px;
+            margin-top: 8px;
+
+            .progress {
+              width: 0%;
+              height: 5px;
+              background-color: #5d4dcc;
+              border-radius: 8px;
+              transition: width 0.5s ease;
+            }
+          }
+
           input {
             width: 100%;
             padding: 5px;
