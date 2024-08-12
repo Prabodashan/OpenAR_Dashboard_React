@@ -23,8 +23,6 @@ const Sidebar = () => {
   const { auth } = UseAuth();
   const { toggle } = useContext(DarkModeContext);
 
-  console.log(auth.userType);
-
   return (
     <div className="sidebar">
       <div className="top">
@@ -110,10 +108,12 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <li>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">

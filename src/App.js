@@ -1,25 +1,32 @@
-import { useContext } from "react";
+import { lazy, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import Users from "./pages/users/Users";
-import SingleUser from "./pages/singleUser/SingleUser";
-import GlobalLayout from "./layouts/globalLayout/GlobalLayout";
-import NewUser from "./pages/newUser/NewUser";
-import GlobalMissing from "./layouts/globalMissing/GlobalMissing";
-import RequireAuth from "./components/requireAuth/RequireAuth";
-
-import { DarkModeContext } from "./contexts/darkModeContext";
+import { Toaster } from "sonner";
 
 import "./App.css";
 import "./style/dark.scss";
-import { Toaster } from "sonner";
-import Collection from "./pages/collection/Collection";
-import NewCollection from "./pages/newCollection/NewCollection";
-import SingleCollection from "./pages/singleCollection/SingleCollection";
-import SingleItem from "./pages/singleItem/SingleItem";
-import NewItem from "./pages/newItem/NewItem";
-import Item from "./pages/Item/Item";
+
+import { DarkModeContext } from "./contexts/darkModeContext";
+
+import Login from "./pages/login/Login";
+import GlobalMissing from "./layouts/globalMissing/GlobalMissing";
+import GlobalLayout from "./layouts/globalLayout/GlobalLayout";
+import RequireAuth from "./components/requireAuth/RequireAuth";
+
+const Home = lazy(() => import("./pages/home/Home"));
+
+const Users = lazy(() => import("./pages/users/Users"));
+const SingleUser = lazy(() => import("./pages/singleUser/SingleUser"));
+const NewUser = lazy(() => import("./pages/newUser/NewUser"));
+
+const Collection = lazy(() => import("./pages/collection/Collection"));
+const SingleCollection = lazy(() =>
+  import("./pages/singleCollection/SingleCollection")
+);
+const NewCollection = lazy(() => import("./pages/newCollection/NewCollection"));
+
+const Item = lazy(() => import("./pages/Item/Item"));
+const SingleItem = lazy(() => import("./pages/singleItem/SingleItem"));
+const NewItem = lazy(() => import("./pages/newItem/NewItem"));
 
 const ROLES = {
   User: "user",
