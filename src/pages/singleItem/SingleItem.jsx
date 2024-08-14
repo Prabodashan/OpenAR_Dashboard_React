@@ -5,12 +5,9 @@ import Table from "../../components/table/Table";
 
 import "./singleItem.scss";
 import { API_URLS } from "../../configs/api.urls";
-import useAxios from "../../libraries/axios";
-import UseAuth from "../../hooks/UseAuth";
+import useAxios from "../../hooks/axios";
 
 const SingleItem = () => {
-  const { auth } = UseAuth();
-
   const location = useLocation();
   const itemId = location.pathname.split("/")[2];
 
@@ -22,13 +19,8 @@ const SingleItem = () => {
     const response = await fetchData({
       url: API_URLS.GET_ITEM_BY_ID_URL + `/${itemId}`,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
-    console.log(response);
     if (response?.status) {
       setItemData(response.item);
     }

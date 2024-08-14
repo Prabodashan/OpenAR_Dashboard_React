@@ -8,12 +8,11 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { ItemColumns } from "../../data/datatablesource";
 import "./item.scss";
 import { API_URLS } from "../../configs/api.urls";
-import UseAuth from "../../hooks/UseAuth";
-import useAxios from "../../libraries/axios";
+
+import useAxios from "../../hooks/axios";
 import { toast } from "sonner";
 
 const Item = () => {
-  const { auth } = UseAuth();
   const [itemData, setItemData] = useState();
 
   const { loading, fetchData } = useAxios();
@@ -22,10 +21,6 @@ const Item = () => {
     const response = await fetchData({
       url: API_URLS.GET_ALL_ITEM_URL,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (response?.status) {
@@ -52,10 +47,6 @@ const Item = () => {
             const response = await fetchData({
               url: API_URLS.DELETE_ITEM_BY_ID_URL + `/${id}`,
               method: "DELETE",
-              requestConfig: {
-                "content-type": "application/json",
-                token: "Bearer " + auth.accessToken,
-              },
             });
 
             if (!response.status) {

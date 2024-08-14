@@ -5,14 +5,12 @@ import Table from "../../components/table/Table";
 
 import "./singleCollection.scss";
 import { API_URLS } from "../../configs/api.urls";
-import useAxios from "../../libraries/axios";
-import UseAuth from "../../hooks/UseAuth";
+import useAxios from "../../hooks/axios";
+
 import { DataGrid } from "@mui/x-data-grid";
 import { ItemColumns } from "../../data/datatablesource";
 
 const SingleCollection = () => {
-  const { auth } = UseAuth();
-
   const location = useLocation();
   const collectionId = location.pathname.split("/")[2];
 
@@ -25,10 +23,6 @@ const SingleCollection = () => {
     const response = await fetchData({
       url: API_URLS.GET_COLLECTION_BY_ID_URL + `/${collectionId}`,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (response?.status) {
@@ -40,10 +34,6 @@ const SingleCollection = () => {
     const response = await fetchData({
       url: API_URLS.GET_ALL_ITEM_BY_COLLECTION_ID_URL + `/${collectionId}`,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     console.log(response);

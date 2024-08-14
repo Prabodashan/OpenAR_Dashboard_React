@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -18,10 +18,30 @@ import { DarkModeContext } from "../../contexts/darkModeContext";
 import UseAuth from "./../../hooks/UseAuth";
 
 import "./sidebar.scss";
+import axios from "../../libraries/axios";
+import { API_URLS } from "../../configs/api.urls";
+import useAxios from "../../hooks/axios";
 
 const Sidebar = () => {
-  const { auth } = UseAuth();
+  const { auth, setAuth } = UseAuth();
   const { toggle } = useContext(DarkModeContext);
+  const navigate = useNavigate();
+
+    const { loading, fetchData } = useAxios();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetchData({
+        url: API_URLS.LOGOUT_URL,
+        method: "POST",
+      });
+      console.log(response);
+      setAuth(null);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -108,12 +128,10 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <li>
-              <ExitToAppIcon className="icon" />
-              <span>Logout</span>
-            </li>
-          </Link>
+          <li onClick={handleLogout}>
+            <ExitToAppIcon className="icon" />
+            <span>Logout</span>
+          </li>
         </ul>
       </div>
       <div className="bottom">

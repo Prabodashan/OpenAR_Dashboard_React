@@ -10,7 +10,7 @@ import "./users.scss";
 // import axios from "../../configs/axios";
 import { API_URLS } from "../../configs/api.urls";
 import UseAuth from "./../../hooks/UseAuth";
-import useAxios from "./../../libraries/axios";
+import useAxios from "../../hooks/axios";
 import { toast } from "sonner";
 
 const Users = () => {
@@ -23,10 +23,6 @@ const Users = () => {
     const response = await fetchData({
       url: API_URLS.GET_ALL_USER_URL,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (response?.status) {
@@ -53,10 +49,6 @@ const Users = () => {
             const response = await fetchData({
               url: API_URLS.DELETE_USER_BY_ID_URL + `/${id}`,
               method: "DELETE",
-              requestConfig: {
-                "content-type": "application/json",
-                token: "Bearer " + auth.accessToken,
-              },
             });
 
             console.log(response);

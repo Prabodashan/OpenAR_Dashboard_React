@@ -3,19 +3,17 @@ import { toast } from "sonner";
 
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
-import useAxios from "../../libraries/axios";
+import useAxios from "../../hooks/axios";
 
 import "./newItem.scss";
 
 import { API_URLS } from "../../configs/api.urls";
-import UseAuth from "../../hooks/UseAuth";
+
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../libraries/axios";
 
 const NewItem = () => {
   const navigate = useNavigate();
-
-  const { auth } = UseAuth();
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -37,10 +35,6 @@ const NewItem = () => {
     const response = await fetchData({
       url: API_URLS.GET_ALL_COLLECTION_URL,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (response?.status) {
@@ -101,10 +95,6 @@ const NewItem = () => {
       url: API_URLS.CREATE_ITEM_URL,
       method: "POST",
       data: itemData,
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (!response.status) {

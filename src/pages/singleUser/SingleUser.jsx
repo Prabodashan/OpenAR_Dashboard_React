@@ -3,11 +3,9 @@ import { useLocation } from "react-router-dom";
 
 import "./singleUser.scss";
 import { API_URLS } from "../../configs/api.urls";
-import useAxios from "../../libraries/axios";
-import UseAuth from "../../hooks/UseAuth";
+import useAxios from "../../hooks/axios";
 
 const SingleUser = () => {
-  const { auth } = UseAuth();
 
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
@@ -20,10 +18,6 @@ const SingleUser = () => {
     const response = await fetchData({
       url: API_URLS.GET_USER_BY_ID_URL + `/${userId}`,
       method: "GET",
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (response?.status) {

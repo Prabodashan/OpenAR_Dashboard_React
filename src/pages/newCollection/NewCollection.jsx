@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 
 import "./newCollection.scss";
-import useAxios from "../../libraries/axios";
+import useAxios from "../../hooks/axios";
 import { toast } from "sonner";
 import { API_URLS } from "../../configs/api.urls";
-import UseAuth from "../../hooks/UseAuth";
+
 import { useNavigate } from "react-router-dom";
 
 const NewCollection = () => {
   const navigate = useNavigate();
 
-  const { auth } = UseAuth();
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -47,10 +46,6 @@ const NewCollection = () => {
       url: API_URLS.CREATE_COLLECTION_URL,
       method: "POST",
       data: inputs,
-      requestConfig: {
-        "content-type": "application/json",
-        token: "Bearer " + auth.accessToken,
-      },
     });
 
     if (!response.status) {

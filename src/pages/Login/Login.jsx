@@ -6,7 +6,7 @@ import "./login.scss";
 import { API_URLS } from "./../../configs/api.urls";
 import UseAuth from "./../../hooks/UseAuth";
 import { toast } from "sonner";
-import useAxios from "../../libraries/axios";
+import useAxios from "../../hooks/axios";
 
 const Login = () => {
   const { setAuth } = UseAuth();
@@ -61,10 +61,10 @@ const Login = () => {
     if (!response.status) {
       return toast.error(response.error.message);
     }
-    const { accessToken, refreshToken, userType, userId } = response;
+    const { refreshToken, userType, userId } = response;
     toast.success(response.success.message);
 
-    setAuth({ userId, userType, accessToken, refreshToken });
+    setAuth({ userId, userType, refreshToken });
     navigate(from, { replace: true });
   };
 
