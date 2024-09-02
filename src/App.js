@@ -11,6 +11,7 @@ import Login from "./pages/login/Login";
 import GlobalMissing from "./layouts/globalMissing/GlobalMissing";
 import GlobalLayout from "./layouts/globalLayout/GlobalLayout";
 import RequireAuth from "./components/requireAuth/RequireAuth";
+import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
 
 const Home = lazy(() => import("./pages/home/Home"));
 
@@ -25,12 +26,16 @@ const SingleCollection = lazy(() =>
 const NewCollection = lazy(() => import("./pages/newCollection/NewCollection"));
 
 const Item = lazy(() => import("./pages/Item/Item"));
-const SingleItem = lazy(() => import("./pages/singleItem/SingleItem"));
 const NewItem = lazy(() => import("./pages/newItem/NewItem"));
+const SingleItem = lazy(() => import("./pages/singleItem/SingleItem"));
+
+const DevItem = lazy(() => import("./pages/devItem/DevItem"));
+const SingleIDevtem = lazy(() => import("./pages/singleIDevtem/SingleIDevtem"));
 
 const ROLES = {
   User: "user",
   Admin: "admin",
+  Dev: "dev",
 };
 
 function App() {
@@ -41,10 +46,15 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Login />} />
+          <Route path="/error" element={<ErrorPage />} />
           <Route path="/" element={<GlobalLayout />}>
             {/* protected routes */}
             <Route
-              element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}
+              element={
+                <RequireAuth
+                  allowedRoles={[ROLES.Admin, ROLES.User, ROLES.Dev]}
+                />
+              }
             >
               <Route path="home" element={<Home />} />
             </Route>
@@ -64,8 +74,14 @@ function App() {
               </Route>
               <Route path="item">
                 <Route index element={<Item />} />
-                <Route path=":collectionId" element={<SingleItem />} />
+                <Route path=":itemId" element={<SingleItem />} />
                 <Route path="new" element={<NewItem />} />
+              </Route>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Dev]} />}>
+              <Route path="dev">
+                <Route index element={<DevItem />} />
+                <Route path=":itemId" element={<SingleIDevtem />} />
               </Route>
             </Route>
           </Route>

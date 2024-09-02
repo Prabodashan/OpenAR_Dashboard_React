@@ -5,21 +5,19 @@ import { DataGrid } from "@mui/x-data-grid";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-import { ItemColumns } from "../../data/datatablesource";
-import "./item.scss";
+import { DevItemColumns } from "../../data/datatablesource";
+import "./devItem.scss";
 import { API_URLS } from "../../configs/api.urls";
 
 import useAxios from "../../hooks/axios";
-import { toast } from "sonner";
-
-const Item = () => {
+const DevItem = () => {
   const [itemData, setItemData] = useState();
 
   const { loading, fetchData } = useAxios();
 
   const getItem = async () => {
     const response = await fetchData({
-      url: API_URLS.GET_ALL_ITEM_BY_USER_ID_URL,
+      url: API_URLS.GET_ALL_ITEM_URL,
       method: "GET",
     });
 
@@ -36,33 +34,6 @@ const Item = () => {
     [itemData]
   );
 
-  const handleDelete = (id) => {
-    confirmAlert({
-      title: "Confirm to submit",
-      message: "Are you sure to delete item.",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: async () => {
-            const response = await fetchData({
-              url: API_URLS.DELETE_ITEM_BY_ID_URL + `/${id}`,
-              method: "DELETE",
-            });
-
-            if (!response.status) {
-              return toast.error(response.error.message);
-            }
-            toast.success(response.success.message);
-            getItem();
-          },
-        },
-        {
-          label: "No",
-        },
-      ],
-    });
-  };
-
   const actionColumn = [
     {
       field: "action",
@@ -72,17 +43,11 @@ const Item = () => {
         return (
           <div className="cellAction">
             <Link
-              to={`/item/${params.row.id}`}
+              to={`/dev/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
           </div>
         );
       },
@@ -90,20 +55,15 @@ const Item = () => {
   ];
 
   return (
-    <div className="items">
-      <div className="titlebar">
-        Add New Item
-        <Link to="/item/new" className="link">
-          Add New
-        </Link>
-      </div>
+    <div className="devItem">
+      <div className="titlebar">Item need to develop</div>
       {loading ? (
         <h2>Loading...</h2>
       ) : (
         <DataGrid
           className="datagrid"
           rows={rows}
-          columns={ItemColumns.concat(actionColumn)}
+          columns={DevItemColumns.concat(actionColumn)}
           pageSize={9}
           rowsPerPageOptions={[9]}
           checkboxSelection
@@ -113,4 +73,4 @@ const Item = () => {
   );
 };
 
-export default Item;
+export default DevItem;

@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import useRefreshToken from "./useRefreshToken";
 
 import { axiosInstance } from "../libraries/axios";
-;
-
 // Custom hook for API calls with request cancellation and interceptors
 const useAxios = () => {
   const [loading, setLoading] = useState(false);
 
   const refresh = useRefreshToken();
+
+  //Navigate and Location hook
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // Set up request and response interceptors
   axiosInstance.interceptors.request.use(
@@ -75,6 +80,13 @@ const useAxios = () => {
 
       return result.data;
     } catch (error) {
+      if (!error?.response) {
+        navigate("/error", { replace: true });
+        return {
+          status: false,
+          error: { message: "Server Error" },
+        };
+      }
       console.log("Request cancelled", error.response.data);
       return error.response.data;
     } finally {

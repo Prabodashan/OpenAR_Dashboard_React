@@ -1,0 +1,160 @@
+.singleDevItem {
+  flex: 6;
+
+  .top {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+
+    .left {
+      flex: 1;
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 20px;
+      position: relative;
+
+      .editButton {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        font-size: 15px;
+        color: #7451f8;
+        background-color: #7551f818;
+        cursor: pointer;
+        border-radius: 0px 0px 0px 5px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        height: max-content;
+
+        .itemImg {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .details {
+          .itemTitle {
+            margin-bottom: 10px;
+            color: #555;
+          }
+
+          .detailItem {
+            margin-bottom: 10px;
+
+            .itemKey {
+              font-weight: bold;
+              color: gray;
+              margin-right: 5px;
+              font-size: 18px;
+            }
+
+            .itemValue {
+              font-weight: 300;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    .right {
+      flex: 2;
+    }
+  }
+
+  .bottom {
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    padding: 20px;
+    margin: 10px 20px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: space-between;
+      padding: 50px;
+
+      .formInput {
+        width: 30%;
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .icon {
+            cursor: pointer;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: 5px;
+          border: none;
+          font-size: 16px;
+          border-bottom: 1px solid gray;
+        }
+
+        .select-container {
+          position: relative;
+          display: inline-block;
+          width: 100%;
+        }
+
+        select {
+          width: 100%;
+          padding: 10px;
+          border: none;
+          border-bottom: 1px solid gray;
+          background-color: transparent;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        .select-container::after {
+          content: "▼"; /* Custom arrow */
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none; /* Make sure the icon doesn't interfere with clicking */
+          color: gray; /* Color of the arrow */
+        }
+
+        select:focus {
+          outline: none;
+          border-bottom: 2px solid black;
+        }
+      }
+
+      button {
+        width: 200px;
+        padding: 10px;
+        border: none;
+        background-color: teal;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}

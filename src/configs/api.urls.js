@@ -15,10 +15,13 @@ export const API_URLS = {
   DELETE_COLLECTION_BY_ID_URL: "collection",
 
   CREATE_ITEM_URL: "item/create",
+  GET_ALL_ITEM_BY_USER_ID_URL: "item/all/user",
   GET_ALL_ITEM_URL: "item/all",
   GET_ALL_ITEM_BY_COLLECTION_ID_URL: "item/collection",
   GET_ITEM_BY_ID_URL: "item",
   DELETE_ITEM_BY_ID_URL: "item",
+  UPDATE_ITEM_BY_ID_URL: "item",
 
   FILE_UPLOAD_URL: "http://localhost:3301/api/file/upload?folderName=zip",
+  FILE_DOWNLOAD_URL: "http://localhost:3301/api/file/download",
 };

@@ -18,7 +18,6 @@ import { DarkModeContext } from "../../contexts/darkModeContext";
 import UseAuth from "./../../hooks/UseAuth";
 
 import "./sidebar.scss";
-import axios from "../../libraries/axios";
 import { API_URLS } from "../../configs/api.urls";
 import useAxios from "../../hooks/axios";
 
@@ -27,7 +26,7 @@ const Sidebar = () => {
   const { toggle } = useContext(DarkModeContext);
   const navigate = useNavigate();
 
-    const { loading, fetchData } = useAxios();
+  const { loading, fetchData } = useAxios();
 
   const handleLogout = async () => {
     try {
@@ -93,10 +92,12 @@ const Sidebar = () => {
           )}
           {auth.userType == "dev" ? (
             <>
-              <li>
-                <LocalShippingIcon className="icon" />
-                <span>Delivery</span>
-              </li>
+              <Link to="/dev" style={{ textDecoration: "none" }}>
+                <li>
+                  <DescriptionIcon className="icon" />
+                  <span>Items</span>
+                </li>
+              </Link>
             </>
           ) : (
             ""

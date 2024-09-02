@@ -35,7 +35,9 @@ const SingleItem = () => {
         <div className="left">
           <div className="editButton">Edit</div>
           <h1 className="title">Information</h1>
-          {itemData ? (
+          {loading ? (
+            <h2>Loading...</h2>
+          ) : itemData ? (
             <div className="item">
               <img
                 src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"

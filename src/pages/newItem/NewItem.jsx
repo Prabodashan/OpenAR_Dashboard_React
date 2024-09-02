@@ -10,7 +10,7 @@ import "./newItem.scss";
 import { API_URLS } from "../../configs/api.urls";
 
 import { useNavigate } from "react-router-dom";
-import axios from "../../libraries/axios";
+import axios from "axios";
 
 const NewItem = () => {
   const navigate = useNavigate();
@@ -79,6 +79,7 @@ const NewItem = () => {
           (progressEvent.loaded * 100) / progressEvent.total
         );
         setProgress(percentCompleted);
+        console.log(percentCompleted);
       },
     });
 
