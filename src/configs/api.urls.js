@@ -23,5 +23,6 @@ export const API_URLS = {
   UPDATE_ITEM_BY_ID_URL: "item",
 
   FILE_UPLOAD_URL: "http://localhost:3301/api/file/upload?folderName=zip",
+  ASSEST_UPLOAD_URL: "http://localhost:3301/api/file/upload?folderName=assest",
   FILE_DOWNLOAD_URL: "http://localhost:3301/api/file/download",
 };

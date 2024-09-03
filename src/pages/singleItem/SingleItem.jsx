@@ -33,7 +33,6 @@ const SingleItem = () => {
     <div className="singleItem">
       <div className="top">
         <div className="left">
-          <div className="editButton">Edit</div>
           <h1 className="title">Information</h1>
           {loading ? (
             <h2>Loading...</h2>
@@ -55,6 +54,33 @@ const SingleItem = () => {
                   <span className="itemValue">{itemData.collectionName}</span>
                 </div>
               </div>
+              {itemData.devId ? (
+                <div className="details">
+                  <div className="detailItem">
+                      <span className="itemKey">Developer Name:</span>
+
+                    <span className="itemValue">{itemData.devFullName}</span>
+                  </div>
+                  <div className="detailItem">
+                      <span className="itemKey">Developer Email:</span>
+
+                    <span className="itemValue">
+                      {itemData.devEmailAddress}
+                    </span>
+                  </div>
+                  <div className="detailItem">
+                      <span className="itemKey">Developer Phone Number:</span>
+
+                    <span className="itemValue">{itemData.devPhoneNumber}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="details">
+                  <div className="detailItem">
+                    <span className="itemKey">Developer not assgin</span>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             ""

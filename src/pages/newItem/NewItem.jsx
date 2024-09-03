@@ -79,7 +79,6 @@ const NewItem = () => {
           (progressEvent.loaded * 100) / progressEvent.total
         );
         setProgress(percentCompleted);
-        console.log(percentCompleted);
       },
     });
 

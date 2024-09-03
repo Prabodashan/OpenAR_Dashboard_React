@@ -13,18 +13,6 @@
       padding: 20px;
       position: relative;
 
-      .editButton {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 5px;
-        font-size: 15px;
-        color: #7451f8;
-        background-color: #7551f818;
-        cursor: pointer;
-        border-radius: 0px 0px 0px 5px;
-      }
-
       .title {
         font-size: 20px;
       }
@@ -61,6 +49,15 @@
             .itemValue {
               font-weight: 300;
               font-size: 18px;
+            }
+            .downloadButton {
+              padding: 5px;
+              font-size: 15px;
+              color: #7451f8;
+              background-color: #7551f818;
+              cursor: pointer;
+              border-radius: 0px 0px 0px 5px;
+              border-color: #7551f818;
             }
           }
         }
